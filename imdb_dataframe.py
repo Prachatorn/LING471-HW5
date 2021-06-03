@@ -8,6 +8,7 @@ from pathlib import Path
 
 import pandas as pd
 import csv
+import os
 
 from bs4 import BeautifulSoup
 import nltk
@@ -19,6 +20,8 @@ from nltk.stem.wordnet import WordNetLemmatizer
 # Constants:
 POS = 1
 NEG = 0
+TEST = "test"
+TRAIN = "train"
 
 
 def review_to_words(review, remove_stopwords=False, lemmatize=False):
@@ -48,7 +51,7 @@ def review_to_words(review, remove_stopwords=False, lemmatize=False):
 
 
 def cleanFileContents(f):
-    with open(f, 'r') as f:
+    with open(f, 'r', encoding="utf8") as f:
         text = f.read()
     cleaned_text = review_to_words(text)
     lowercased = cleaned_text.lower()
@@ -64,16 +67,60 @@ def processFileForDF(f, table, label, t):
 
 
 def createDataFrames(argv):
-    train_pos = list(Path(argv[1]).glob("*.txt"))
-    train_neg = list(Path(argv[2]).glob("*.txt"))
-    test_pos = list(Path(argv[3]).glob("*.txt"))
-    test_neg = list(Path(argv[4]).glob("*.txt"))
+    #train_pos = list(Path(argv[1]).glob("*.txt"))
+    #train_neg = list(Path(argv[2]).glob("*.txt"))
+    #test_pos = list(Path(argv[3]).glob("*.txt"))
+    #test_neg = list(Path(argv[4]).glob("*.txt"))
+
+
+    # argv[1] -> The positive reviews from the train dataset
+    # argv[2] -> The negative reviews from the train dataset
+    # argv[3] -> The positive reviews from the test dataset
+    # argv[4] -> The negative reviews from the test dataset
+    
+    train_pos = argv[1]
+    train_neg = argv[2]
+    test_pos = argv[3]
+    test_neg = argv[4]
 
     data = []
 
     # TODO: Your function from assignment 4, adapted for assignment 5 as needed, goes here.
     # Do all the required preprocerssing.
-    #
+    
+    for index, filename in enumerate(os.listdir(train_pos)):
+        f = os.path.join(train_pos, filename)
+        if os.path.isfile(f) and filename.endswith('.txt'):
+            clean_text = cleanFileContents(f)
+        data.append([filename, POS, TRAIN, clean_text[0], clean_text[1], clean_text[2], clean_text[3], clean_text[4]])
+        if index % 100 == 0:
+            print("Processing directory 1 out of 4, file {} out of 12500".format(index))
+
+    for index, filename in enumerate(os.listdir(train_neg)):
+        f = os.path.join(train_neg, filename)
+        if os.path.isfile(f) and filename.endswith('.txt'):
+            clean_text = cleanFileContents(f)
+        data.append([filename, NEG, TRAIN, clean_text[0], clean_text[1], clean_text[2], clean_text[3], clean_text[4]])
+        if index % 100 == 0: 
+            print("Processing directory 2 out of 4, file {} out of 12500".format(index))
+
+    for index, filename in enumerate(os.listdir(test_pos)): 
+        f = os.path.join(test_pos, filename)
+        if os.path.isfile(f) and filename.endswith('.txt'):
+            clean_text = cleanFileContents(f)
+        data.append([filename, POS, TEST, clean_text[0], clean_text[1], clean_text[2], clean_text[3], clean_text[4]])
+        if index % 100 == 0: 
+            print("Processing directory 3 out of 4, file {} out of 12500".format(index))
+
+    for index, filename in enumerate(os.listdir(test_neg)):
+        f = os.path.join(test_neg, filename)
+        if os.path.isfile(f) and filename.endswith('.txt'):
+            clean_text = cleanFileContents(f)
+        data.append([filename, NEG, TEST, clean_text[0], clean_text[1], clean_text[2], clean_text[3], clean_text[4]])
+        if index % 100 == 0:
+            print("Processing directory 4 out of 4, file {} out of 12500".format(index))
+        
+
     # TODO: The program will now be noticeably slower!
     # To reassure yourself that the program is doing something, insert print statements as progress indicators.
     # For example, for each 100th file, print out something like:
@@ -83,14 +130,16 @@ def createDataFrames(argv):
 
     # Your code goes here... Example of how to get not only a list element but also its index, below:
     # for index, element in enumerate(['a','b','c','d']):
-    #    print("{}'s index is {}".format(element,index))
+    #    print("{}'s index is {}".format(element,index)
+
 
     # Use the below column names if you like:
     column_names = ["file", "label", "type", "review",
                     "cleaned_review", "lowercased", "no stopwords", "lemmatized"]
     df = pd.DataFrame(data=data, columns=column_names)
     df.sort_values(by=['type', 'file'])
-    df.to_csv('my_imdb_expanded.csv')
+    df.to_csv('prachjoe_imdb_expanded.csv')
+    
 
 
 def main(argv):

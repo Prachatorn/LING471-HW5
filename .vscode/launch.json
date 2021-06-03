@@ -1,0 +1,24 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    //"C:\\Users\\somch\\OneDrive - UW\\Linguistics\\LING 471 - Computational Methods For Linguists\\Assignments\\aclImdb\\train\\pos\\1_7.txt"
+
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: Current File",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "args": [
+                //"prachjoe_imdb_dataframe.csv"
+                "C:\\Users\\somch\\OneDrive - UW\\Linguistics\\LING 471 - Computational Methods For Linguists\\Assignments\\aclImdb\\train\\pos",
+                "C:\\Users\\somch\\OneDrive - UW\\Linguistics\\LING 471 - Computational Methods For Linguists\\Assignments\\aclImdb\\train\\neg",
+                "C:\\Users\\somch\\OneDrive - UW\\Linguistics\\LING 471 - Computational Methods For Linguists\\Assignments\\aclImdb\\test\\pos",
+                "C:\\Users\\somch\\OneDrive - UW\\Linguistics\\LING 471 - Computational Methods For Linguists\\Assignments\\aclImdb\\test\\neg"
+            ]
+        }
+    ]
+}
