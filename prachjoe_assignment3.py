@@ -23,7 +23,7 @@ import string
 import os
 
 # Import review_vector.py property
-import review_vector
+# import review_vector
 
 # Import evaluation.py property
 import evaluation

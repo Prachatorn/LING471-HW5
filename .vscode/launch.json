@@ -13,11 +13,11 @@
             "program": "${file}",
             "console": "integratedTerminal",
             "args": [
-                //"prachjoe_imdb_dataframe.csv"
-                "C:\\Users\\somch\\OneDrive - UW\\Linguistics\\LING 471 - Computational Methods For Linguists\\Assignments\\aclImdb\\train\\pos",
-                "C:\\Users\\somch\\OneDrive - UW\\Linguistics\\LING 471 - Computational Methods For Linguists\\Assignments\\aclImdb\\train\\neg",
-                "C:\\Users\\somch\\OneDrive - UW\\Linguistics\\LING 471 - Computational Methods For Linguists\\Assignments\\aclImdb\\test\\pos",
-                "C:\\Users\\somch\\OneDrive - UW\\Linguistics\\LING 471 - Computational Methods For Linguists\\Assignments\\aclImdb\\test\\neg"
+                "prachjoe_imdb_expanded.csv"
+                //"C:\\Users\\somch\\OneDrive - UW\\Linguistics\\LING 471 - Computational Methods For Linguists\\Assignments\\aclImdb\\train\\pos",
+                //"C:\\Users\\somch\\OneDrive - UW\\Linguistics\\LING 471 - Computational Methods For Linguists\\Assignments\\aclImdb\\train\\neg",
+                //"C:\\Users\\somch\\OneDrive - UW\\Linguistics\\LING 471 - Computational Methods For Linguists\\Assignments\\aclImdb\\test\\pos",
+               // "C:\\Users\\somch\\OneDrive - UW\\Linguistics\\LING 471 - Computational Methods For Linguists\\Assignments\\aclImdb\\test\\neg"
             ]
         }
     ]

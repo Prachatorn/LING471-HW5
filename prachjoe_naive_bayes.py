@@ -22,11 +22,12 @@ ALPHA = 1
 
 # This function will be reporting errors due to variables which were not assigned any value.
 # Your task is to get it working! You can comment out things which aren't working at first.
-def my_naive_bayes(argv):
+def my_naive_bayes(column, label):
 
     # Read in the data. NB: You may get an extra Unnamed column with indices; this is OK.
     # If you like, you can get rid of it by passing a second argument to the read_csv(): index_col=[0].
-    data = pd.read_csv(argv[1], index_col=[0])
+    #data = pd.read_csv(column, index_col=[0])
+    data = column
     #print(data.head()) # <- Verify the format. Comment this back out once done.
 
     # TODO: Change as appropriate, if you stored data differently (e.g. if you put train data first).
@@ -34,19 +35,21 @@ def my_naive_bayes(argv):
     # At any rate, make sure you are grabbing the right data! Double check with temporary print statements,
     # e.g. print(test_data.head()).
 
-    test_data = data[:25000]  # Assuming the first 25,000 rows are test data.
+    train_data = data[:25000]  # Assuming the first 25,000 rows are test data.
+    train_label = label[:25000]
 
     # Assuming the second 25,000 rows are training data. Double check!
-    train_data = data[25000:50000]
+    test_data = data[25000:50000]
+    test_label = label[25000:50000]
 
     # TODO: Set the below 4 variables to contain:
     # X_train: the training data; y_train: the training data labels;
     # X_test: the test data; y_test: the test data labels.
     # Access the data frames by the appropriate column names.
-    X_train = train_data["review"]
-    y_train = train_data["label"]
-    X_test = test_data["review"]
-    y_test = test_data["label"]
+    X_train = train_data
+    y_train = train_label
+    X_test = test_data
+    y_test = test_label
 
     # TODO COMMENT: Look up what the astype() method is doing and add a comment, explaining in your own words,
     # what the next two lines are doing.
@@ -108,17 +111,37 @@ def my_naive_bayes(argv):
     # Please DO NOT modify the format (for grading purposes).
     # You may change the variable names of course, if you used different ones above.
 
-    print("Train accuracy:           \t{}".format(round(accuracy_train[0], ROUND)))
-    print("Train precision positive: \t{}".format(round(precision_pos_train, ROUND)))
-    print("Train recall positive:    \t{}".format(round(recall_pos_train, ROUND)))
-    print("Train precision negative: \t{}".format(round(precision_neg_train, ROUND)))
-    print("Train recall negative:    \t{}".format(round(recall_neg_train, ROUND)))
-    print("Test accuracy:            \t{}".format(round(accuracy_test[0], ROUND)))
-    print("Test precision positive:  \t{}".format(round(precision_pos_test, ROUND)))
-    print("Test recall positive:     \t{}".format(round(recall_pos_test, ROUND)))
-    print("Test precision negative:  \t{}".format(round(precision_neg_test, ROUND)))
-    print("Test recall negative:     \t{}".format(round(recall_neg_test, ROUND)))
+    #print("Train accuracy:           \t{}".format(round(accuracy_train[0], ROUND)))
+    #print("Train precision positive: \t{}".format(round(precision_pos_train, ROUND)))
+    #print("Train recall positive:    \t{}".format(round(recall_pos_train, ROUND)))
+    #print("Train precision negative: \t{}".format(round(precision_neg_train, ROUND)))
+    #print("Train recall negative:    \t{}".format(round(recall_neg_train, ROUND)))
+    #print("Test accuracy:            \t{}".format(round(accuracy_test[0], ROUND)))
+    #print("Test precision positive:  \t{}".format(round(precision_pos_test, ROUND)))
+    #print("Test recall positive:     \t{}".format(round(recall_pos_test, ROUND)))
+    #print("Test precision negative:  \t{}".format(round(precision_neg_test, ROUND)))
+    #print("Test recall negative:     \t{}".format(round(recall_neg_test, ROUND)))
 
+    dict_eval = {}
+
+    dict_eval["Train"] = {}
+    dict_eval["Train"]["accuracy"] = round(accuracy_train[0], ROUND)
+    dict_eval["Train"]["POS"] = {}
+    dict_eval["Train"]["POS"]["precision"] = round(precision_pos_train, ROUND)
+    dict_eval["Train"]["POS"]["recall"] = round(recall_pos_train, ROUND)
+    dict_eval["Train"]["NEG"] = {}
+    dict_eval["Train"]["NEG"]["precision"] = round(precision_neg_train, ROUND)
+    dict_eval["Train"]["NEG"]["recall"] = round(recall_neg_train, ROUND)
+    dict_eval["Test"] = {}
+    dict_eval["Test"]["accuracy"] = round(accuracy_test[0], ROUND)
+    dict_eval["Test"]["POS"] = {}
+    dict_eval["Test"]["POS"]["precision"] = round(precision_pos_test, ROUND)
+    dict_eval["Test"]["POS"]["recall"] = round(recall_pos_test, ROUND)
+    dict_eval["Test"]["NEG"] = {}
+    dict_eval["Test"]["NEG"]["precision"] = round(precision_neg_test, ROUND)
+    dict_eval["Test"]["NEG"]["recall"] = round(recall_neg_test, ROUND)
+
+    return dict_eval
 
 #if __name__ == "__main__":
 #    main(sys.argv)
